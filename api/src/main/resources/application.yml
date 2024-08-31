@@ -1,0 +1,9 @@
+undertow:
+  cors:
+    allowed-origin: "*"
+    allowed-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+    allowed-headers: "*"
+    allowed-credentials: true
+    exposed-headers: "etag"
+    max-age: 3600
+    enabled: true
