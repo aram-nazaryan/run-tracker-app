@@ -53,7 +53,7 @@ public interface RunRepository extends CrudRepository<Run, UUID> {
             select r
             from Run r
             where r.deleted is null 
-            and r.userId =:userId
+            and r.userId = :userId
             and (coalesce(:fromDatetime) is null or r.startTime >= :fromDatetime)
             and (coalesce(:toDatetime) is null or r.startTime <= :toDatetime)
             """)

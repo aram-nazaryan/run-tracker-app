@@ -10,7 +10,6 @@ spring:
           lob:
             non_contextual_creation: true
           batch_size: 30
-          time_zone: UTC
         show_sql: false
         format_sql: false
         order_inserts: true
