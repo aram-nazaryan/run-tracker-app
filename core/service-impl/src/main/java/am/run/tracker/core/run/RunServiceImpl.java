@@ -22,8 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -113,6 +115,9 @@ public class RunServiceImpl implements RunService {
         return new UserStatsAggregationResponse(userStats.getRunCount(), userStats.getAverageSpeed(), userStats.getTotalDistance());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public PageResponse<Run> search(final UUID userId, final SearchGenericRequest<RunSearchFilter, RunSortProperty> request) {
@@ -134,6 +139,22 @@ public class RunServiceImpl implements RunService {
                 request.pageRequest().sortProperty(),
                 request.pageRequest().sortDirection(),
                 runPage.getContent());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void deleteRunByUserId(UUID userId) {
+        logger.trace("Deleting runs by user ID: {}", userId);
+        final Set<Run> userRuns = runRepository.getByUserIdAndDeletedIsNull(userId);
+        final Instant deletionDate = Instant.now();
+        for (Run run : userRuns) {
+            run.setDeleted(deletionDate);
+        }
+        runRepository.saveAll(userRuns);
+        logger.debug("Done deleting runs by user ID: {}", userId);
     }
 
 

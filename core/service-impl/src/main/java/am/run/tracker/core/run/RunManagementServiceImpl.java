@@ -5,10 +5,12 @@ import am.run.tracker.core.common.datatypes.SearchGenericRequest;
 import am.run.tracker.core.common.datatypes.run.RunSearchFilter;
 import am.run.tracker.core.common.datatypes.run.RunSortProperty;
 import am.run.tracker.core.common.datatypes.run.UpdateRunType;
+import am.run.tracker.core.common.datatypes.user.UserStatsAggregationRequest;
 import am.run.tracker.core.persistence.entities.run.Run;
 import am.run.tracker.core.persistence.entities.user.User;
 import am.run.tracker.core.user.UserNotFoundException;
 import am.run.tracker.core.user.UserService;
+import am.run.tracker.core.user.UserStatsAggregationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -78,5 +80,18 @@ public class RunManagementServiceImpl implements RunManagementService {
         final PageResponse<Run> pagrRun = runService.search(userId, request);
         logger.debug("Done searching for user runs by user ID: {}, request: {}", userId, request);
         return pagrRun;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public UserStatsAggregationResponse aggregateUserStats(UUID userId, UserStatsAggregationRequest request) {
+        logger.trace("Aggregating user run stats by user ID: {}, request: {}", userId, request);
+        final User user = userService.get(userId);
+        final UserStatsAggregationResponse aggregateUserStats = runService.aggregateUserStats(user.getId(), request);
+        logger.debug("Done aggregating user run stats by user ID: {}, request: {}", userId, request);
+        return aggregateUserStats;
     }
 }

@@ -4,7 +4,9 @@ import am.run.tracker.core.common.datatypes.PageResponse;
 import am.run.tracker.core.common.datatypes.SearchGenericRequest;
 import am.run.tracker.core.common.datatypes.run.RunSearchFilter;
 import am.run.tracker.core.common.datatypes.run.RunSortProperty;
+import am.run.tracker.core.common.datatypes.user.UserStatsAggregationRequest;
 import am.run.tracker.core.persistence.entities.run.Run;
+import am.run.tracker.core.user.UserStatsAggregationResponse;
 
 import java.util.UUID;
 
@@ -25,4 +27,12 @@ public interface RunManagementService {
      * @param request
      */
     PageResponse<Run> searchRun(UUID userId, SearchGenericRequest<RunSearchFilter, RunSortProperty> request);
+
+    /**
+     * Aggregates user run stats
+     *
+     * @param userId
+     * @param request
+     */
+    UserStatsAggregationResponse aggregateUserStats(UUID userId, UserStatsAggregationRequest request);
 }

@@ -51,4 +51,11 @@ public interface RunService {
      * @param request
      */
     PageResponse<Run> search(final UUID userId, final SearchGenericRequest<RunSearchFilter, RunSortProperty> request);
+
+    /**
+     * Deletes runs by user Id
+     *
+     * @param userId
+     */
+    void deleteRunByUserId(final UUID userId);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Repository
@@ -27,6 +28,8 @@ public interface RunRepository extends CrudRepository<Run, UUID> {
             limit 1
             """)
     Optional<Run> findUserActiveRun(@Param("userId") UUID userId);
+
+    Set<Run> getByUserIdAndDeletedIsNull(UUID userId);
 
     Optional<Run> getRunByIdAndDeletedIsNull(UUID runId);
 

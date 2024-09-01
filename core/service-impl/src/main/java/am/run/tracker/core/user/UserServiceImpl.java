@@ -6,6 +6,7 @@ import am.run.tracker.core.common.datatypes.user.UserSearchFilter;
 import am.run.tracker.core.common.datatypes.user.UserSortProperty;
 import am.run.tracker.core.persistence.entities.user.User;
 import am.run.tracker.core.persistence.repositories.user.UserRepository;
+import am.run.tracker.core.run.RunService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -24,10 +25,13 @@ public class UserServiceImpl implements UserService {
 
     private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    private final RunService runService;
     private final UserRepository userRepository;
 
-    public UserServiceImpl(final UserRepository userRepository) {
+    public UserServiceImpl(final UserRepository userRepository,
+                           final RunService runService) {
         this.userRepository = userRepository;
+        this.runService = runService;
     }
 
     /**
@@ -101,6 +105,7 @@ public class UserServiceImpl implements UserService {
         final User user = get(userId);
         user.setDeleted(Instant.now());
         final User deletedUser = userRepository.save(user);
+        runService.deleteRunByUserId(userId);
         logger.trace("Done deleting user by ID: {}", userId);
         return deletedUser;
     }

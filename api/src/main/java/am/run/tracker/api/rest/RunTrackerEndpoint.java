@@ -51,7 +51,6 @@ public class RunTrackerEndpoint {
 
 
     private final UserService userService;
-    private final RunService runService;
     private final RunManagementService runManagementService;
 
     public RunTrackerEndpoint(final UserMapper userMapper,
@@ -63,7 +62,6 @@ public class RunTrackerEndpoint {
                               final RunStatsAssembler runStatsAssembler,
                               final PagedResponseResourcesAssembler<Run> runPagedResponseResourcesAssembler,
                               final UserService userService,
-                              final RunService runService,
                               final RunManagementService runManagementService) {
         this.userMapper = userMapper;
         this.userAssembler = userAssembler;
@@ -74,7 +72,6 @@ public class RunTrackerEndpoint {
         this.runStatsAssembler = runStatsAssembler;
         this.runPagedResponseResourcesAssembler = runPagedResponseResourcesAssembler;
         this.userService = userService;
-        this.runService = runService;
         this.runManagementService = runManagementService;
     }
 
@@ -187,7 +184,7 @@ public class RunTrackerEndpoint {
                                                                 @RequestParam(value = "from_datetime", required = false) Instant fromDatetime,
                                                                 @RequestParam(value = "to_datetime", required = false) Instant toDatetime) {
         try {
-            final UserStatsAggregationResponse userStatsAggregationResponse = runService.aggregateUserStats(userId,
+            final UserStatsAggregationResponse userStatsAggregationResponse = runManagementService.aggregateUserStats(userId,
                     new UserStatsAggregationRequest(fromDatetime, toDatetime));
             final RunStatsRM statsRM = runStatsAssembler.toModel(userStatsAggregationResponse);
             return ResponseEntity.ok(EntityModel.of(statsRM));
