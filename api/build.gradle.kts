@@ -27,10 +27,15 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-hateoas:1.6.13") {
         exclude(group = "org.springdoc", module = "springdoc-openapi-common")
     }
-
+    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.test {
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")  // Display test statuses
+        showStandardStreams = true  // Display standard output and error streams
+    }
 }

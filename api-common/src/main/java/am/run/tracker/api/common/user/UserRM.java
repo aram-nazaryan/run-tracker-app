@@ -18,11 +18,14 @@ public class UserRM extends RepresentationModel<UserRM> {
 
     private UUID id;
     private String firstName;
-    private String laseName;
+    private String lastName;
     private LocalDate birthDate;
     private Gender gender;
     private Instant created;
     private Instant updated;
+
+    public UserRM() {
+    }
 
     public UserRM(Instant created) {
         this.created = created;
@@ -30,14 +33,14 @@ public class UserRM extends RepresentationModel<UserRM> {
 
     public UserRM(final UUID id,
                   final String firstName,
-                  final String laseName,
+                  final String lastName,
                   final LocalDate birthDate,
                   final Gender gender,
                   final Instant created,
                   final Instant updated) {
         this.id = id;
         this.firstName = firstName;
-        this.laseName = laseName;
+        this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
         this.created = created;
@@ -60,12 +63,12 @@ public class UserRM extends RepresentationModel<UserRM> {
         this.firstName = firstName;
     }
 
-    public String getLaseName() {
-        return laseName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLaseName(String laseName) {
-        this.laseName = laseName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public LocalDate getBirthDate() {
@@ -111,7 +114,7 @@ public class UserRM extends RepresentationModel<UserRM> {
                 .appendSuper(super.equals(o))
                 .append(id, userRM.id)
                 .append(firstName, userRM.firstName)
-                .append(laseName, userRM.laseName)
+                .append(lastName, userRM.lastName)
                 .append(birthDate, userRM.birthDate)
                 .append(gender, userRM.gender)
                 .append(created, userRM.created)
@@ -125,7 +128,7 @@ public class UserRM extends RepresentationModel<UserRM> {
                 .appendSuper(super.hashCode())
                 .append(id)
                 .append(firstName)
-                .append(laseName)
+                .append(lastName)
                 .append(birthDate)
                 .append(gender)
                 .append(created)
@@ -138,7 +141,7 @@ public class UserRM extends RepresentationModel<UserRM> {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("firstName", firstName)
-                .append("laseName", laseName)
+                .append("lastName", lastName)
                 .append("birthDate", birthDate)
                 .append("gender", gender)
                 .append("updated", updated)

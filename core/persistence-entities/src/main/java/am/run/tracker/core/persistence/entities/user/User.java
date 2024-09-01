@@ -36,11 +36,11 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "birth_date", nullable = false, updatable = false)
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender", nullable = false, updatable = false)
+    @Column(name = "gender", nullable = false)
     @Type(PostgreSQLEnumType.class)
     private Gender gender;
 

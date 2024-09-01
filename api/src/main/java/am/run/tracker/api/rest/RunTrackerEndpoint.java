@@ -84,7 +84,7 @@ public class RunTrackerEndpoint {
         return ResponseEntity.ok(EntityModel.of(userResponseModel));
     }
 
-    @PatchMapping("/{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<EntityModel<UserDetailedRM>> patch(@PathVariable("userId") UUID userId, @Valid @RequestBody UserPatchRequestDto patchRequest) {
         try {
             final UserPatchRequest userPatchRequest = userMapper.toUserPatchRequest(patchRequest);

@@ -12,6 +12,10 @@ public class UserDetailedRM extends UserRM {
 
     private Set<RunRM> runs;
 
+    public UserDetailedRM() {
+        super();
+    }
+
     public UserDetailedRM(final UUID id,
                           final String firstName,
                           final String laseName,
